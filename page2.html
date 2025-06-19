@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3 Year Anniversary</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+        position: relative;
+        box-sizing: border-box;
+      }
+      button {
+        margin: 10px 15px;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        background-color: #ff69b4;
+        color: white;
+        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        transition: background-color 0.3s ease;
+        user-select: none;
+      }
+      button:hover {
+        background-color: #ff85c1;
+      }
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      #random-pic {
+        max-width: 90vw;
+        max-height: 60vh;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(255, 105, 180, 0.5);
+        margin-top: 20px;
+        display: none;
+      }
+      #video-container {
+        width: 600px;
+        max-width: 90vw;
+        aspect-ratio: 16 / 9;
+        margin-top: 20px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(255, 105, 180, 0.6);
+        display: none;
+        position: relative;
+      }
+      #video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 20px;
+      }
+      #text-display {
+        margin-top: 20px;
+        max-width: 700px;
+        font-family: "Dancing Script", cursive;
+        font-size: 1.5rem;
+        color: #8a2e6e;
+        text-align: center;
+        display: none;
+        padding: 0 10px;
+        line-height: 1.6;
+      }
+      .back-button,
+      .music-toggle-button {
+        position: fixed;
+        bottom: 20px;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        background-color: #ffc0cb;
+        color: #5d2a72;
+        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        transition: background-color 0.3s ease;
+        user-select: none;
+        z-index: 1000;
+      }
+      .back-button {
+        right: 20px;
+      }
+      .music-toggle-button {
+        left: 20px;
+      }
+      .whats-next-button,
+      .speak-button {
+        position: fixed;
+        bottom: 80px;
+        transform: translateX(-50%);
+        left: 50%;
+        font-size: 16px;
+        padding: 12px 24px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        background-color: #ff69b4;
+        color: white;
+        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.6);
+        transition: background-color 0.3s ease;
+        z-index: 1000;
+      }
+      .speak-button {
+        bottom: 130px;
+      }
+      #countdown-container {
+        display: none;
+        margin-top: 40px;
+        font-family: "Dancing Script", cursive;
+        color: #7f2b6f;
+        font-size: 2rem;
+        text-align: center;
+      }
+      @media (max-width: 480px) {
+        button {
+          font-size: 15px;
+          padding: 10px 20px;
+        }
+        #text-display {
+          font-size: 1.3rem;
+        }
+      }
+      .heart {
+        position: absolute;
+        bottom: -40px;
+        font-size: 20px;
+        color: #ff5ca1;
+        opacity: 0.7;
+        animation: floatHearts 8s linear infinite;
+        pointer-events: none;
+        filter: drop-shadow(0 0 2px #ff90c1);
+      }
+      @keyframes floatHearts {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-400px) scale(1.3);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2
+      style="
+        font-family: 'Dancing Script', cursive;
+        text-align: center;
+        color: #7f2b6f;
+      "
+    >
+      3 years of love, devotion and lessons 💕
+    </h2>
+
+    <div id="main-content">
+      <button id="memoriesBtn">Memories</button>
+      <button id="aboutLastYearBtn">About Last Year</button>
+      <button id="thingsToSayBtn">Things I Wanted to Say</button>
+      <img id="random-pic" src="" alt="Random memory" />
+      <div id="video-container">
+        <video id="video" src="2years final.mp4" controls></video>
+      </div>
+      <div id="text-display"></div>
+    </div>
+
+    <div id="countdown-container"></div>
+
+    <button class="music-toggle-button" id="music-btn">⏸ Pause Music</button>
+    <button class="back-button" onclick="location.href='index.html'">
+      Back
+    </button>
+    <button class="whats-next-button" id="whatsNextBtn">What's Next?</button>
+    <button class="speak-button" id="speakBtn">Speak Your Heart</button>
+
+    <audio id="bg-music" src="song1.mp3" autoplay loop></audio>
+
+    <!-- Floating hearts -->
+    <span class="heart" style="left: 5%; animation-duration: 8s">❤️</span>
+    <span class="heart" style="left: 15%; animation-duration: 10s">❤️</span>
+    <span class="heart" style="left: 25%; animation-duration: 7s">❤️</span>
+    <span class="heart" style="left: 35%; animation-duration: 9s">❤️</span>
+    <span class="heart" style="left: 45%; animation-duration: 8s">❤️</span>
+    <span class="heart" style="left: 55%; animation-duration: 7.5s">❤️</span>
+    <span class="heart" style="left: 65%; animation-duration: 9.5s">❤️</span>
+    <span class="heart" style="left: 75%; animation-duration: 8.2s">❤️</span>
+    <span class="heart" style="left: 85%; animation-duration: 7.8s">❤️</span>
+    <span class="heart" style="left: 95%; animation-duration: 9.3s">❤️</span>
+
+    <!-- Updated EmailJS SDK v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      // Initialize EmailJS with v4 syntax
+      (function () {
+        emailjs.init({
+          publicKey: "fpgqDjE-oUEpFYb7t",
+          blockHeadless: true,
+          limitRate: {
+            id: "app",
+            throttle: 10000,
+          },
+        });
+      })();
+
+      // 10 Romantic Paragraphs
+      const paragraphs = [
+        "From the very moment our souls collided, I knew something magical had begun. Our love has grown deeper than words can convey—a garden of laughter, tears, hope, and unwavering support. You have taught me to feel again, to believe in something greater than myself. Every moment by your side is poetry—unwritten, raw, and breathtaking. Your love wraps me in peace, your smile fuels my courage, and your heart guides my every step. Together we've painted our world in hues of passion and perseverance, and I promise to never let that color fade. I will cherish you beyond the stars, and through all time. You are my always.",
+
+        "In your eyes, I see not just the reflection of our past, but the entire future I dream of. Each heartbeat of yours echoes through me like a song I never want to end. You are not just my love—you are the very rhythm of my life. When you hold my hand, I feel the strength of our story. When you whisper your dreams, I feel trusted. When you look at me, I feel whole. We have grown from uncertainty into something unshakable, and every step forward is a testament to the strength of our bond. No storm can shake what we've built. My soul is tethered to yours, forever and freely.",
+
+        "Three years have passed like pages in our favorite book—each chapter more beautiful than the last. Your love has been my shelter in storms and my sunshine on clear days. The way you understand me without words, the way your touch still sends shivers down my spine, the way your laughter fills our home with joy—these are the treasures I hold closest to my heart. With you, I've discovered love isn't just a feeling; it's a choice we renew every morning when we choose each other again and again.",
+
+        "Do you remember our first date? That nervous excitement seems so quaint now compared to the deep, steady love we've built. What we have now is so much richer—the comfortable silences, the shared glances across a crowded room, the way we've learned to dance through life's challenges together. You've shown me that true love isn't about perfection; it's about showing up, being real, and growing together. Every scar, every laugh line, every gray hair will just be another mark of our journey together.",
+
+        "They say love is giving someone the power to destroy you but trusting they won't. You've done more than not destroy me—you've rebuilt me stronger. Your belief in me has given me wings, and your love has given me roots. I never knew I could feel this safe and this excited at the same time. With you, every ordinary moment becomes extraordinary, and every challenge becomes an adventure we'll laugh about later. Thank you for being my partner in this beautiful chaos we call life.",
+
+        "I love the way we've created our own little world with its own language—those silly nicknames, the movie quotes only we understand, the traditions that are ours alone. Our love isn't like anyone else's, and that's what makes it so special. You've taught me that love isn't about grand gestures (though yours always make me swoon) but about the thousand little ways you choose me every day—the coffee you make just how I like it, the way you listen to my rants, how you still reach for my hand after all this time.",
+
+        "If someone had told me three years ago how completely you would change my life, I wouldn't have believed them. You've turned my 'I' into 'we,' my plans into 'ours,' my heart into 'home.' The way you love me has rewritten my understanding of what love can be—patient, kind, fierce, forgiving, and endlessly surprising. I fall in love with you anew each day, not despite our imperfections but because of how beautifully we navigate them together.",
+
+        "Our love story is my favorite. Not because it's perfect, but because it's ours. The missed trains and wrong turns that led us to each other, the inside jokes no one else gets, the way you know exactly when I need space or a hug. You've seen me at my worst and loved me back to my best. If love is a journey, I can't imagine a better travel partner. Here's to all the roads still ahead, all the sunrises we'll greet together, all the love stories we've yet to write.",
+
+        "They say you can't choose who you love, but every day I choose you with my whole heart. I choose your morning breath and your bad jokes. I choose your stubbornness and your tenderness. I choose to love you not just when it's easy but when it's hard, not just in the highlights but in the mundane moments too. Because loving you isn't something I do—it's who I've become. Three years in, and I'm still the luckiest person alive to call you mine.",
+
+        "Every love song makes sense now. Every cliché romance plot feels incomplete because they don't show what comes after the 'happily ever after'—the real, messy, beautiful work of building a life together. That's what we have, my love. Not a fairy tale, but something better—a love that grows, adapts, and deepens. A love that makes ordinary days extraordinary and hard days bearable. A love that's become the bedrock of my life. However many years we get, they'll never be enough with you.",
+      ];
+
+      let paragraphIndex = 0;
+      let countdownInterval = null;
+      let countdownActive = false;
+
+      document.getElementById("thingsToSayBtn").onclick = () => {
+        if (countdownActive) return;
+        document.getElementById("random-pic").style.display = "none";
+        document.getElementById("video-container").style.display = "none";
+        const textDisplay = document.getElementById("text-display");
+        textDisplay.textContent = paragraphs[paragraphIndex];
+        textDisplay.style.display = "block";
+        paragraphIndex = (paragraphIndex + 1) % paragraphs.length;
+      };
+
+      document.getElementById("memoriesBtn").onclick = () => {
+        if (countdownActive) return;
+        document.getElementById("video-container").style.display = "none";
+        document.getElementById("text-display").style.display = "none";
+        const randomPic = document.getElementById("random-pic");
+        randomPic.src = `pic${Math.floor(Math.random() * 10) + 1}.jpg`;
+        randomPic.style.display = "block";
+      };
+
+      document.getElementById("aboutLastYearBtn").onclick = () => {
+        if (countdownActive) return;
+        document.getElementById("random-pic").style.display = "none";
+        document.getElementById("text-display").style.display = "none";
+        const videoContainer = document.getElementById("video-container");
+        videoContainer.style.display = "block";
+        const video = document.getElementById("video");
+        video.pause();
+        video.currentTime = 0;
+        video.play();
+      };
+
+      document.getElementById("music-btn").onclick = () => {
+        const music = document.getElementById("bg-music");
+        const btn = document.getElementById("music-btn");
+        if (music.paused) {
+          music.play();
+          btn.textContent = "⏸ Pause Music";
+        } else {
+          music.pause();
+          btn.textContent = "▶️ Play Music";
+        }
+      };
+
+      document.getElementById("whatsNextBtn").onclick = () => {
+        countdownActive = !countdownActive;
+        document.getElementById("main-content").style.display = countdownActive
+          ? "none"
+          : "block";
+        document.getElementById("countdown-container").style.display =
+          countdownActive ? "block" : "none";
+        if (countdownActive) {
+          startCountdown();
+        } else {
+          clearInterval(countdownInterval);
+        }
+      };
+
+      function startCountdown() {
+        const target = new Date("June 18, 2026 00:00:00").getTime();
+        countdownInterval = setInterval(() => {
+          const now = new Date().getTime();
+          const diff = target - now;
+          if (diff <= 0) {
+            document.getElementById("countdown-container").textContent =
+              "🎉 It's June 18, 2026! 🎉";
+            clearInterval(countdownInterval);
+          } else {
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+            document.getElementById(
+              "countdown-container"
+            ).textContent = `Countdown to 18/06/2026:\n${d} days ${h} hrs ${m} min ${s} sec`;
+          }
+        }, 1000);
+      }
+
+      document.getElementById("speakBtn").onclick = async () => {
+        const speakBtn = document.getElementById("speakBtn");
+        const originalText = speakBtn.textContent;
+
+        try {
+          if (typeof emailjs === "undefined") {
+            throw new Error(
+              "Email service not loaded. Please refresh the page."
+            );
+          }
+
+          const message = prompt("Write your message from the heart:");
+          if (!message || message.trim() === "") return;
+
+          speakBtn.textContent = "Sending...";
+          speakBtn.disabled = true;
+
+          const response = await emailjs.send(
+            "service_vgp5rbi",
+            "template_my8ddvp",
+            {
+              message: message,
+              from_name: "Anniversary Website User",
+              reply_to: "user@example.com",
+            },
+            {
+              publicKey: "fpgqDjE-oUEpFYb7t",
+            }
+          );
+
+          alert("Your message has been sent successfully! 💌");
+          console.log("EmailJS response:", response);
+        } catch (error) {
+          console.error("Email sending failed:", error);
+          alert(
+            `Failed to send message. ${
+              error.message || "Please try again later."
+            }`
+          );
+        } finally {
+          speakBtn.textContent = originalText;
+          speakBtn.disabled = false;
+        }
+      };
+    </script>
+  </body>
+</html>
